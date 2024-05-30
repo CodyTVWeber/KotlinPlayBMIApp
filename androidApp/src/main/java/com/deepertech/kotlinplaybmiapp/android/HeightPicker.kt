@@ -8,11 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun HeightPicker(isHeightInCm: Boolean = true) {
-
+fun HeightPicker() {
     Row {
-        HeightUnitPicker(isHeightInCm)
-
+        HeightUnitPicker()
         Spacer(
             modifier = Modifier.fillMaxWidth()
         )

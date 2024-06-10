@@ -1,14 +1,20 @@
 package com.deepertech.kotlinplaybmiapp.android
 
+import BMIViewModel2
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -16,37 +22,37 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun HeightUnitPicker(viewModel: BMIViewModel = viewModel()) {
-    // TODO:  Set up state for isHeightInCm
-    // TODO:  THIS IS NOT CORRECT YET.  NEED TO USE THE BMIViewModel.
-    val bmiState = BMIState()
-    Column(
-        modifier = Modifier
+fun HeightUnitPicker(
+    modifier: Modifier = Modifier,
+    viewModel: BMIViewModel2 = viewModel()) {
+    val bmiState =
+    LazyColumn(
+        modifier = modifier
             .padding(8.dp)
             .clickable(enabled = true) {
-                viewModel.changeHeightUnit(!bmiState.isHeightInCm)
+                viewModel.updateHeightUnit()
             },
-        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+        horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally,
+        verticalArrangement = androidx.compose.foundation.layout.Arrangement.Center
     ) {
-        Icon(
-            imageVector = Icons.Default.MoreVert,
-            contentDescription = "Height Icon"
-        )
-        Text("Height")
-        // TODO:  Fix coloring
-        Row {
-            Text(
-                "cm",
-                modifier = Modifier.padding(4.dp),
-//                        color = if(isHeightInCm) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface
-                color = if (bmiState.isHeightInCm) Color.White else Color.LightGray
+        item {
+            Icon(
+                imageVector = Icons.Default.MoreVert,
+                contentDescription = "Height Icon"
             )
-            Text(
-                "ft",
-                modifier = Modifier.padding(4.dp),
-//                        color = if(!isHeightInCm) MaterialTheme.colors.primary else MaterialTheme.colors.onSurface
-                color = if (!bmiState.isHeightInCm) Color.White else Color.LightGray
-            )
+            Text("Height")
+            Row {
+                Text(
+                    "cm",
+                    modifier = Modifier.padding(4.dp),
+                    color = if (viewModel.isHeightInCm.value) Color.White else Color.LightGray
+                )
+                Text(
+                    "ft",
+                    modifier = Modifier.padding(4.dp),
+                    color = if (!viewModel.isHeightInCm.value) Color.White else Color.LightGray
+                )
+            }
         }
     }
 }

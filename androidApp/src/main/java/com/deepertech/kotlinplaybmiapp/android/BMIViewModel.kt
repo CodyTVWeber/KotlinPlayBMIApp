@@ -1,10 +1,8 @@
-package com.deepertech.kotlinplaybmiapp.android
-
+import android.os.Parcelable
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.parcelize.Parcelize
 
 val bmiCategories = mapOf(
     "Underweight" to 19.0,
@@ -12,49 +10,43 @@ val bmiCategories = mapOf(
     "Overweight" to 30.0,
     "Obesity" to Double.MAX_VALUE
 )
+
+@Parcelize
 data class BMIState(
     var height: Int = 170,
     var weight: Int = 70,
-    var isHeightInCm: Boolean = true,
+    var isHeightInCm: Boolean = false,
     var isWeightInKg: Boolean = true,
-)
-class BMIViewModel() : ViewModel() {
-    // TODO:  Fix the ViewModel state
-    // Expose screen UI state
-    private val _bmiState = MutableStateFlow(BMIState())
-    val bmiState: StateFlow<BMIState> = _bmiState.asStateFlow()
+) : Parcelable
 
+class BMIViewModel2() : ViewModel() {
 
-    fun changeHeight(height: Int) {
-        _bmiState.update { currentState ->
-            currentState.copy(height = height)
-        }
+    var height = mutableIntStateOf(170)
+    var weight = mutableIntStateOf(70)
+    var isHeightInCm = mutableStateOf(false)
+    var isWeightInKg = mutableStateOf(false)
+
+    fun updateHeight(height: Int) {
+        this.height.value = height
     }
 
-    fun changeWeight(weight: Int) {
-        _bmiState.update { currentState ->
-            currentState.copy(weight = weight)
-        }
+    fun updateWeight(weight: Int) {
+        this.weight.value = weight
     }
 
-    fun changeHeightUnit(isHeightInCm: Boolean) {
-        _bmiState.update { currentState ->
-            currentState.copy(isHeightInCm = isHeightInCm)
-        }
+    fun updateHeightUnit() {
+        isHeightInCm.value = isHeightInCm.value.not()
     }
 
-    fun changeWeightUnit(isWeightInKg: Boolean) {
-        _bmiState.update { currentState ->
-            currentState.copy(isWeightInKg = isWeightInKg)
-        }
+    fun updateWeightUnit() {
+        isWeightInKg.value = isWeightInKg.value.not()
     }
-
 
     fun getBmi(): Double {
-        val height = bmiState.value.height
-        val weight = bmiState.value.weight
-        val heightInM = if (bmiState.value.isHeightInCm) height / 100.0 else height * 0.3048
-        val weightInKg = if (bmiState.value.isWeightInKg) weight else weight * 0.453592
+        val height = height.value
+        val weight = weight.value
+        val heightInM = if (isHeightInCm.value) height / 100.0 else height * 0.3048
+        val weightInKg = if (isWeightInKg.value) weight else weight * 0.453592
         val heightSquared = heightInM * heightInM
         return weightInKg.toDouble() / heightSquared
     }
@@ -62,9 +54,9 @@ class BMIViewModel() : ViewModel() {
     fun getBmiCategory(): String {
         val bmi = getBmi()
         return when {
-            bmi < bmiCategories.get("Underweight")!! -> "Underweight"
-            bmi < bmiCategories.get("Normal weight")!! -> "Normal weight"
-            bmi < bmiCategories.get("Overweight")!! -> "Overweight"
+            bmi < bmiCategories["Underweight"]!! -> "Underweight"
+            bmi < bmiCategories["Normal weight"]!! -> "Normal weight"
+            bmi < bmiCategories["Overweight"]!! -> "Overweight"
             else -> "Obesity"
         }
     }

@@ -15,7 +15,7 @@ val bmiCategories = mapOf(
 data class BMIState(
     var height: Int = 170,
     var weight: Int = 70,
-    var isHeightInCm: Boolean = false,
+    var isHeightInCm: Boolean = true,
     var isWeightInKg: Boolean = true,
 ) : Parcelable
 

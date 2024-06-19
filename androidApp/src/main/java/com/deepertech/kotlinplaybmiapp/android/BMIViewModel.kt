@@ -24,8 +24,8 @@ data class BMIState(
 class BMIViewModel : ViewModel() {
     var height = mutableIntStateOf(170)
     var weight = mutableIntStateOf(70)
-    var isHeightInCm = mutableStateOf(false)
-    var isWeightInKg = mutableStateOf(false)
+    var isHeightInCm = mutableStateOf(true)
+    var isWeightInKg = mutableStateOf(true)
     var isMale = mutableStateOf(true)
     var age = mutableIntStateOf(30)
 

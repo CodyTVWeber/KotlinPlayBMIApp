@@ -13,7 +13,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 fun HeightAmountPicker(
     modifier: Modifier = Modifier,
 ) {
-    var bmiViewModel: BMIViewModel = viewModel()
+    val bmiViewModel: BMIViewModel = viewModel()
     Box (
         modifier = modifier,
         contentAlignment = Alignment.Center
@@ -22,7 +22,7 @@ fun HeightAmountPicker(
         // TODO: Implement CountPicker
 //            CountPicker (bottomNumber = 1, topNumber = 300, defaultNumber = 160) {
         val selectedHeightUnit = if (bmiViewModel.isHeightInCm.value) "cm" else "ft"
-        val amountFromCountPicker = bmiViewModel.height.value
+        val amountFromCountPicker = bmiViewModel.height.intValue
         Text("$amountFromCountPicker $selectedHeightUnit")
     }
 

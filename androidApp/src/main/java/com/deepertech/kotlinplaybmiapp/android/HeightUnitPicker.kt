@@ -20,7 +20,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 fun HeightUnitPicker(
     modifier: Modifier = Modifier,
     viewModel: BMIViewModel = viewModel()) {
-    val bmiState =
     LazyColumn(
         modifier = modifier
             .padding(8.dp)

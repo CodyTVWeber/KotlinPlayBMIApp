@@ -19,7 +19,7 @@ data class BMIState(
     var isWeightInKg: Boolean = true,
 ) : Parcelable
 
-class BMIViewModel2() : ViewModel() {
+class BMIViewModel : ViewModel() {
 
     var height = mutableIntStateOf(170)
     var weight = mutableIntStateOf(70)

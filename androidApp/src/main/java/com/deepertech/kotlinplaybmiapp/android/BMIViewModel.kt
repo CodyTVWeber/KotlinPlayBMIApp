@@ -17,6 +17,7 @@ data class BMIState(
     var weight: Int = 70,
     var isHeightInCm: Boolean = true,
     var isWeightInKg: Boolean = true,
+    var isMale: Boolean = true
 ) : Parcelable
 
 class BMIViewModel : ViewModel() {
@@ -25,6 +26,8 @@ class BMIViewModel : ViewModel() {
     var weight = mutableIntStateOf(70)
     var isHeightInCm = mutableStateOf(false)
     var isWeightInKg = mutableStateOf(false)
+    var isMale = mutableStateOf(true)
+
 
     fun updateHeight(height: Int) {
         this.height.value = height
@@ -40,6 +43,10 @@ class BMIViewModel : ViewModel() {
 
     fun updateWeightUnit() {
         isWeightInKg.value = isWeightInKg.value.not()
+    }
+
+    fun updateGender() {
+        isMale.value = isMale.value.not()
     }
 
     fun getBmi(): Double {

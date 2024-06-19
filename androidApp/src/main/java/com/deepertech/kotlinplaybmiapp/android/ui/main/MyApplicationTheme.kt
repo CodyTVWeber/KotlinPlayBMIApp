@@ -1,4 +1,4 @@
-package com.deepertech.kotlinplaybmiapp.android
+package com.deepertech.kotlinplaybmiapp.android.ui.main
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape

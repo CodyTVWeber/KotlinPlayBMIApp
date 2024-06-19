@@ -1,6 +1,5 @@
-package com.deepertech.kotlinplaybmiapp.android
+package com.deepertech.kotlinplaybmiapp.android.ui.main
 
-import BMIViewModel
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
@@ -15,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun AgePicker(
+fun HeightAmountPicker(
     modifier: Modifier = Modifier,
     viewModel: BMIViewModel = viewModel()
 ) {
@@ -31,21 +30,23 @@ fun AgePicker(
         verticalArrangement = Arrangement.Center
     ) {
         item {
-            Text("Age")
+            Text("Height")
             OutlinedTextField(
-                value = viewModel.age.value.toString(),
+                value = viewModel.height.value.toString(),
                 onValueChange = {
-                    viewModel.updateAge(it.toIntOrNull() ?: 0)
+                    viewModel.updateHeight(it.toIntOrNull() ?: 0)
                 },
-                label = { Text("Age") },
+                label = { if (viewModel.isHeightInCm.value) Text("cm") else Text("ft")},
                 singleLine = true,
             )
         }
     }
 }
 
+
+
 @Preview
 @Composable
-fun AgePickerPreview() {
-    AgePicker()
+fun HeightAmountPickerPreview() {
+    HeightAmountPicker()
 }

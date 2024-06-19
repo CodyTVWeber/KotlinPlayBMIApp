@@ -1,4 +1,4 @@
-package com.deepertech.kotlinplaybmiapp.android
+package com.deepertech.kotlinplaybmiapp.android.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -27,7 +27,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 private fun App() {
     val navController = rememberNavController()
-
 
     MyApplicationTheme(
         darkTheme = true

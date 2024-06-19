@@ -1,3 +1,5 @@
+package com.deepertech.kotlinplaybmiapp.android.ui.main
+
 import android.os.Parcelable
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf

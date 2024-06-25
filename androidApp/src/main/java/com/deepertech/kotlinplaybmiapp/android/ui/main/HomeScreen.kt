@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -69,21 +68,11 @@ fun HomeScreen(navigateToResults: () -> Unit = {}) {
                 .fillMaxWidth(),
             contentAlignment = androidx.compose.ui.Alignment.Center,
         ) {
-            StandardButton(navigateToResults)
+            StandardButton("Calculate",navigateToResults)
         }
     }
 }
 
-@Composable
-private fun StandardButton(navigateToResults: () -> Unit) {
-    Button(
-        onClick = navigateToResults
-    ) {
-        Spacer(modifier = Modifier.padding(8.dp, 0.dp))
-        Text("Calculate")
-        Spacer(modifier = Modifier.padding(8.dp, 0.dp))
-    }
-}
 
 @Preview
 @Composable

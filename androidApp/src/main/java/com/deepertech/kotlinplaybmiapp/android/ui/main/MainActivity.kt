@@ -1,13 +1,11 @@
-package com.deepertech.kotlinplaybmiapp.android
+package com.deepertech.kotlinplaybmiapp.android.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -30,7 +28,6 @@ class MainActivity : ComponentActivity() {
 private fun App() {
     val navController = rememberNavController()
 
-
     MyApplicationTheme(
         darkTheme = true
     ) {
@@ -39,9 +36,11 @@ private fun App() {
             color = MaterialTheme.colorScheme.background
         ) {
             NavHost(navController, startDestination = Screen.Home.route) {
-                composable(Screen.Home.route) { HomeScreen{
-                    navController.navigate(Screen.Results.route)
-                } }
+                composable(Screen.Home.route) {
+                    HomeScreen {
+                        navController.navigate(Screen.Results.route)
+                    }
+                }
                 composable(Screen.Results.route) {
                     ResultsScreen {
                         navController.navigate(Screen.Home.route)
@@ -52,19 +51,6 @@ private fun App() {
     }
 }
 
-@Composable
-fun ResultsScreen(navigateToHome: () -> Unit = {}) {
-    Button(onClick = navigateToHome) {
-        Text("Go to Home Screen")
-    }
-}
-
-@Composable
-fun HomeScreen(navigateToResults: () -> Unit = {}){
-    Button(onClick = navigateToResults) {
-        Text("Go to Results Screen")
-    }
-}
 
 @Preview
 @Composable

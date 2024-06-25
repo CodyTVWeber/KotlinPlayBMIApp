@@ -83,12 +83,10 @@ class BMIViewModel : ViewModel() {
     }
 
 
-    fun getHealthyWeightForHeight(): String {
-        val height = height.intValue
-        val heightInM = if (isHeightInCm.value) height / 100.0 else height * 0.3048
-        val healthyWeightForHeight = 24.9 * heightInM * heightInM
-        return "0.0 - $healthyWeightForHeight kg"
-    }
+    fun getHealthyWeightLower() = 18.5 * getHeightInM() * getHeightInM()
+
+    fun getHealthyWeightUpper() = 24.9 * getHeightInM() * getHeightInM()
+
 
     fun getBMIPrime(): Double {
         val height = height.intValue
@@ -104,5 +102,11 @@ class BMIViewModel : ViewModel() {
 
     fun getPonderalIndex(): Double {
         return weight.intValue.toDouble() / height.intValue.toDouble().pow(3.0)
+    }
+
+    fun getHeightInM(): Double {
+        val height = height.intValue
+        val heightInM = if (isHeightInCm.value) height / 100.0 else height * 0.3048
+        return heightInM
     }
 }

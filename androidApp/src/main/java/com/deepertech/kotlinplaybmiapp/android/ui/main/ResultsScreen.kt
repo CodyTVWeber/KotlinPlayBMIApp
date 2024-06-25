@@ -13,14 +13,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
-fun ResultsScreen(navigateToHome: () -> Unit = {}) {
+fun ResultsScreen(
+    navigateToHome: () -> Unit = {}
+) {
     val standardPadding = Modifier
         .padding(16.dp, 0.dp, 16.dp, 16.dp)
-    Column (
+    Column(
         modifier = Modifier.padding(0.dp, 16.dp, 0.dp, 0.dp)
-    ){
+    ) {
         Text(
             "Your result",
             style = MaterialTheme.typography.titleLarge,
@@ -42,80 +45,18 @@ fun ResultsScreen(navigateToHome: () -> Unit = {}) {
             // If obese, show dark orange
             // If severely obese, show red
 
-            
-            // BMI Result
-            // TODO: Add BMI calculation here
-            Column {
-                Text(
-                    "20.1", // TODO:  replace with ViewModel category value
-                    style = MaterialTheme.typography.titleLarge,
-                )
-                Text(
-                    "kg/m2",
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-            }
+
+            BMIResult()
+
             Spacer(modifier = Modifier.weight(.3f))
 
-            // BMI Category
-            Text(
-                "Your BMI is TODO", // TODO:  replace with ViewModel category value
-                style = MaterialTheme.typography.bodyLarge,
-            )
+            BMICategory()
+
             Spacer(modifier = Modifier.weight(.3f))
 
-            // BMI Details
-            // TODO:  Add ViewModel values
-            Column {
-                Row (
-                    modifier = Modifier.padding(0.dp, 4.dp)
-                ) {
-                    Text(
-                        "Healthy BMI range:",
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    Text(
-                        "18.5 - 24.9 kg/m2",
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                }
-                Row (
-                    modifier = Modifier.padding(0.dp, 4.dp)
-                ){
-                    Text(
-                        "Healthy weight for the height:",
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    Text(
-                        "59.9 kg/m2 - 81.1 kg/m2",
-                        style = MaterialTheme.typography.bodyMedium,
-                    )
-                }
-                Row (
-                    modifier = Modifier.padding(0.dp, 4.dp)
-                ) {
-                    Text(
-                        "BMI Prime:",
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    Text(
-                        "0.74",
-                    )
-                }
-                Row (
-                    modifier = Modifier.padding(0.dp, 4.dp)
-                ) {
-                    Text(
-                        "Ponderal Index:",
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    Text(
-                        "13.6 kg/m3",
-                    )
-                }
-            }
+
+            BMIDetails()
+
             Spacer(modifier = Modifier.weight(1f))
 
             // Buttons
@@ -124,9 +65,11 @@ fun ResultsScreen(navigateToHome: () -> Unit = {}) {
                     .fillMaxWidth(),
                 contentAlignment = Alignment.Center,
             ) {
-                Row{
+                Row {
                     StandardButton("Back", navigateToHome)
+
                     Spacer(modifier = Modifier.padding(8.dp, 0.dp))
+
                     StandardButton("Share", navigateToHome)
                 }
             }
@@ -134,6 +77,113 @@ fun ResultsScreen(navigateToHome: () -> Unit = {}) {
 
 
     }
+}
+
+@Composable
+private fun BMIDetails(
+    viewModel: BMIViewModel = viewModel()
+) {
+    Column {
+        // BMI Details
+        Row(
+            modifier = Modifier.padding(0.dp, 4.dp)
+        ) {
+            Text(
+                "Healthy BMI range:",
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Spacer(modifier = Modifier.weight(1f))
+            Text(
+                viewModel.getHealthyBmiRange(),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+        }
+        Row(
+            modifier = Modifier.padding(0.dp, 4.dp)
+        ) {
+            Text(
+                "Healthy weight for the height:",
+                style = MaterialTheme.typography.bodyMedium,
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Text(
+                getHealthyWeightForHeight(viewModel),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+        }
+
+        // TODO: Add BMI Prime
+//        Row(
+//            modifier = Modifier.padding(0.dp, 4.dp)
+//        ) {
+//            Text(
+//                "BMI Prime:",
+//            )
+//            Spacer(modifier = Modifier.weight(1f))
+//            Text(
+//                convertToStringWithOneDeciumalPlace(viewModel.getBMIPrime()),
+//            )
+//        }
+
+        // TODO: Add Ponderal Index
+//        Row(
+//            modifier = Modifier.padding(0.dp, 4.dp)
+//        ) {
+//            Text(
+//                "Ponderal Index:",
+//            )
+//
+//            Spacer(modifier = Modifier.weight(1f))
+//
+//            Text(
+//                convertToStringWithOneDeciumalPlace(viewModel.getPonderalIndex()) + " kg/m3",
+//            )
+//        }
+    }
+}
+
+@Composable
+private fun BMICategory(
+    viewModel: BMIViewModel = viewModel()
+) {
+    Text(
+        "Your BMI is " + viewModel.getBmiCategory(), // TODO:  replace with ViewModel category value
+        style = MaterialTheme.typography.bodyLarge,
+    )
+}
+
+@Composable
+private fun BMIResult(
+    viewModel: BMIViewModel = viewModel()
+) {
+    // BMI Result
+    Column {
+        val value = viewModel.getBmi()
+        Text(
+            convertToStringWithOneDeciumalPlace(value),
+            style = MaterialTheme.typography.titleLarge,
+        )
+        Text(
+            "kg/m2",
+            style = MaterialTheme.typography.bodyMedium,
+        )
+    }
+}
+
+private fun convertToStringWithOneDeciumalPlace(value: Double) =
+    ((value * 10).toInt() / 10.0).toString()
+
+
+fun getHealthyWeightForHeight(viewModel: BMIViewModel): String {
+    val healthyWeightForHeightUpper = viewModel.getHealthyWeightUpper()
+    val healthyWeightForHeightLower = viewModel.getHealthyWeightLower()
+    return "${convertToStringWithOneDeciumalPlace(healthyWeightForHeightLower)} - ${
+        convertToStringWithOneDeciumalPlace(
+            healthyWeightForHeightUpper
+        )
+    } kg"
 }
 
 @Preview

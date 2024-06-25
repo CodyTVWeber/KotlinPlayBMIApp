@@ -87,22 +87,22 @@ class BMIViewModel : ViewModel() {
 
     fun getHealthyWeightUpper() = 24.9 * getHeightInM() * getHeightInM()
 
-
-    fun getBMIPrime(): Double {
-        val height = height.intValue
-        val weight = weight.intValue
-        val heightInM = if (isHeightInCm.value) height / 100.0 else height * 0.3048
-        val weightInKg = if (isWeightInKg.value) weight else weight * 0.453592
-        val heightSquared = heightInM * heightInM
-        val bmi = weightInKg.toDouble() / heightSquared
-        val ponderalIndex = weightInKg.toDouble() / heightInM.pow(3.0)
-        val bmiPrime = bmi / (ponderalIndex.pow(2.0 / 3.0))
-        return bmiPrime
-    }
-
-    fun getPonderalIndex(): Double {
-        return weight.intValue.toDouble() / height.intValue.toDouble().pow(3.0)
-    }
+// TODO: Implement these functions correctly
+//    fun getBMIPrime(): Double {
+//        val height = height.intValue
+//        val weight = weight.intValue
+//        val heightInM = if (isHeightInCm.value) height / 100.0 else height * 0.3048
+//        val weightInKg = if (isWeightInKg.value) weight else weight * 0.453592
+//        val heightSquared = heightInM * heightInM
+//        val bmi = weightInKg.toDouble() / heightSquared
+//        val ponderalIndex = weightInKg.toDouble() / heightInM.pow(3.0)
+//        val bmiPrime = bmi / (ponderalIndex.pow(2.0 / 3.0))
+//        return bmiPrime
+//    }
+//
+//    fun getPonderalIndex(): Double {
+//        return weight.intValue.toDouble() / height.intValue.toDouble().pow(3.0)
+//    }
 
     fun getHeightInM(): Double {
         val height = height.intValue

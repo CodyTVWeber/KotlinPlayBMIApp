@@ -9,7 +9,7 @@ import kotlin.math.pow
 
 val bmiCategories = mapOf(
     "Underweight" to 19.0,
-    "Normal weight" to 25.0,
+    "Normal Weight" to 25.0,
     "Overweight" to 30.0,
     "Obesity" to 40.0,
     "Severe Obesity" to Double.MAX_VALUE
@@ -71,7 +71,7 @@ class BMIViewModel : ViewModel() {
         val bmi = getBmi()
         return when {
             bmi < bmiCategories["Underweight"]!! -> "Underweight"
-            bmi < bmiCategories["Normal weight"]!! -> "Normal weight"
+            bmi < bmiCategories["Normal Weight"]!! -> "Normal Weight"
             bmi < bmiCategories["Overweight"]!! -> "Overweight"
             bmi < bmiCategories["Obesity"]!! -> "Obesity"
             else -> "Severe Obesity"

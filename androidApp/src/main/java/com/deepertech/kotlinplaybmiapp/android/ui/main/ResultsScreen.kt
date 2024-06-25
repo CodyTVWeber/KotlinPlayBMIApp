@@ -149,7 +149,7 @@ private fun BMICategory(
     viewModel: BMIViewModel = viewModel()
 ) {
     Text(
-        "Your BMI is " + viewModel.getBmiCategory(), // TODO:  replace with ViewModel category value
+        "Your BMI is " + viewModel.getBmiCategory(),
         style = MaterialTheme.typography.bodyLarge,
     )
 }

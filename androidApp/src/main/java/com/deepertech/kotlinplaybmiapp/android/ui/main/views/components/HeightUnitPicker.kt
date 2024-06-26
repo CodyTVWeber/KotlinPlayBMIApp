@@ -19,7 +19,9 @@ import com.deepertech.kotlinplaybmiapp.android.ui.main.viewmodels.BMIViewModel
 @Composable
 fun HeightUnitPicker(
     modifier: Modifier = Modifier,
-    viewModel: BMIViewModel = viewModel()) {
+    viewModel: BMIViewModel = BMIViewModel(),
+) {
+
     LazyColumn(
         modifier = modifier
             .padding(8.dp)
@@ -39,12 +41,12 @@ fun HeightUnitPicker(
                 Text(
                     "cm",
                     modifier = Modifier.padding(4.dp),
-                    color = if (viewModel.isHeightInCm.value) Color.White else Color.LightGray
+                    color = if (viewModel.isHeightInCm) Color.White else Color.LightGray
                 )
                 Text(
                     "ft",
                     modifier = Modifier.padding(4.dp),
-                    color = if (!viewModel.isHeightInCm.value) Color.White else Color.LightGray
+                    color = if (!viewModel.isHeightInCm) Color.White else Color.LightGray
                 )
             }
         }

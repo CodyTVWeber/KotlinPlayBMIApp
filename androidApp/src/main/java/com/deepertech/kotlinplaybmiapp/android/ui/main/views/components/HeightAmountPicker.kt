@@ -16,11 +16,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.deepertech.kotlinplaybmiapp.android.ui.main.viewmodels.BMIViewModel
 
+
 @Composable
 fun HeightAmountPicker(
     modifier: Modifier = Modifier,
-    viewModel: BMIViewModel = viewModel()
+    viewModel: BMIViewModel = BMIViewModel(),
 ) {
+
     // For now, just a simple text field.
     // Allow only numbers from 1 to 99.
     LazyColumn(
@@ -35,11 +37,11 @@ fun HeightAmountPicker(
         item {
             Text("Height")
             OutlinedTextField(
-                value = viewModel.height.value.toString(),
+                value = viewModel.height,
                 onValueChange = {
                     viewModel.updateHeight(it)
                 },
-                label = { if (viewModel.isHeightInCm.value) Text("cm") else Text("ft")},
+                label = { if (viewModel.isHeightInCm) Text("cm") else Text("ft")},
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )

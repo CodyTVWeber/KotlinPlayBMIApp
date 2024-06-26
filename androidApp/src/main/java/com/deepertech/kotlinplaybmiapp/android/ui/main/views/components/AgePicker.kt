@@ -19,7 +19,7 @@ import com.deepertech.kotlinplaybmiapp.android.ui.main.viewmodels.BMIViewModel
 @Composable
 fun AgePicker(
     modifier: Modifier = Modifier,
-    viewModel: BMIViewModel = viewModel()
+    viewModel: BMIViewModel = BMIViewModel(),
 ) {
     // For now, just a simple text field.
     // Allow only numbers from 1 to 99.
@@ -35,7 +35,7 @@ fun AgePicker(
         item {
             Text("Age")
             OutlinedTextField(
-                value = viewModel.age.value,
+                value = viewModel.age,
                 onValueChange = {
                     viewModel.updateAge(it)
                 },

@@ -14,14 +14,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.deepertech.kotlinplaybmiapp.android.ui.main.viewmodels.BMIViewModel
 
 @Composable
 fun GenderPicker(
     modifier: Modifier = Modifier,
-    viewModel: BMIViewModel = viewModel()
+    viewModel: BMIViewModel = BMIViewModel()
 ) {
+
     LazyColumn(
         modifier = modifier
             .padding(8.dp)
@@ -41,7 +43,7 @@ fun GenderPicker(
                 Text(
                     "Male",
                     modifier = Modifier.padding(4.dp),
-                    color = if (viewModel.isMale.value) Color.White else Color.LightGray
+                    color = if (viewModel.isMale) Color.White else Color.LightGray
                 )
 
 
@@ -49,7 +51,7 @@ fun GenderPicker(
                 Text(
                     "Female",
                     modifier = Modifier.padding(4.dp),
-                    color = if (!viewModel.isMale.value) Color.White else Color.LightGray
+                    color = if (!viewModel.isMale) Color.White else Color.LightGray
                 )
                 Spacer(modifier = Modifier.padding(4.dp))
             }

@@ -19,8 +19,9 @@ import com.deepertech.kotlinplaybmiapp.android.ui.main.viewmodels.BMIViewModel
 @Composable
 fun WeightAmountPicker(
     modifier: Modifier = Modifier,
-    viewModel: BMIViewModel = viewModel()
+    viewModel: BMIViewModel = BMIViewModel(),
 ) {
+
     // For now, just a simple text field.
     // Allow only numbers from 1 to 99.
     LazyColumn(
@@ -35,11 +36,11 @@ fun WeightAmountPicker(
         item {
             Text("Weight")
             OutlinedTextField(
-                value = viewModel.weight.value,
+                value = viewModel.weight,
                 onValueChange = {
                     viewModel.updateWeight(it)
                 },
-                label = { if (viewModel.isWeightInKg.value) Text("kg") else Text("lb")},
+                label = { if (viewModel.isWeightInKg) Text("kg") else Text("lb")},
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )

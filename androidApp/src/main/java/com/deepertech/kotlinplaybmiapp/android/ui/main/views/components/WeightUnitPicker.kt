@@ -19,7 +19,8 @@ import com.deepertech.kotlinplaybmiapp.android.ui.main.viewmodels.BMIViewModel
 @Composable
 fun WeightUnitPicker(
     modifier: Modifier = Modifier,
-    viewModel: BMIViewModel = viewModel()) {
+    viewModel: BMIViewModel = BMIViewModel(),
+) {
     LazyColumn(
         modifier = modifier
             .padding(8.dp)
@@ -39,12 +40,12 @@ fun WeightUnitPicker(
                 Text(
                     "kg",
                     modifier = Modifier.padding(4.dp),
-                    color = if (viewModel.isWeightInKg.value) Color.White else Color.LightGray
+                    color = if (viewModel.isWeightInKg) Color.White else Color.LightGray
                 )
                 Text(
                     "lb",
                     modifier = Modifier.padding(4.dp),
-                    color = if (!viewModel.isWeightInKg.value) Color.White else Color.LightGray
+                    color = if (!viewModel.isWeightInKg) Color.White else Color.LightGray
                 )
             }
         }

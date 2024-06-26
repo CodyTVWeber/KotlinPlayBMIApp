@@ -19,6 +19,7 @@ import com.deepertech.kotlinplaybmiapp.android.ui.main.views.components.Standard
 
 @Composable
 fun ResultsScreen(
+    viewModel: BMIViewModel = BMIViewModel(),
     navigateToHome: () -> Unit = {}
 ) {
     val standardPadding = Modifier
@@ -48,16 +49,16 @@ fun ResultsScreen(
             // If severely obese, show red
 
 
-            BMIResult()
+            BMIResult(viewModel)
 
             Spacer(modifier = Modifier.weight(.3f))
 
-            BMICategory()
+            BMICategory(viewModel)
 
             Spacer(modifier = Modifier.weight(.3f))
 
 
-            BMIDetails()
+            BMIDetails(viewModel)
 
             Spacer(modifier = Modifier.weight(1f))
 
@@ -70,10 +71,10 @@ fun ResultsScreen(
                 Row {
                     StandardButton("Back", navigateToHome)
 
-                    Spacer(modifier = Modifier.padding(8.dp, 0.dp))
-
-                    // TODO:  Implement sharing...
-                    StandardButton("Share", navigateToHome)
+//                    Spacer(modifier = Modifier.padding(8.dp, 0.dp))
+//
+//                    // TODO:  Implement sharing...
+//                    StandardButton("Share", navigateToHome)
                 }
             }
         }
@@ -84,7 +85,7 @@ fun ResultsScreen(
 
 @Composable
 private fun BMIDetails(
-    viewModel: BMIViewModel = viewModel()
+    viewModel: BMIViewModel = BMIViewModel()
 ) {
     Column {
         // BMI Details
@@ -149,7 +150,7 @@ private fun BMIDetails(
 
 @Composable
 private fun BMICategory(
-    viewModel: BMIViewModel = viewModel()
+    viewModel: BMIViewModel = BMIViewModel()
 ) {
     Text(
         "Your BMI is " + viewModel.getBmiCategory(),
@@ -159,7 +160,7 @@ private fun BMICategory(
 
 @Composable
 private fun BMIResult(
-    viewModel: BMIViewModel = viewModel()
+    viewModel: BMIViewModel = BMIViewModel()
 ) {
     // BMI Result
     Column {

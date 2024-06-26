@@ -1,9 +1,9 @@
 package com.deepertech.kotlinplaybmiapp.android.ui.main.viewmodels
 
-import android.os.Parcelable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import kotlinx.parcelize.Parcelize
 
 val bmiCategories = mapOf(
     "Underweight" to 19.0,
@@ -13,54 +13,50 @@ val bmiCategories = mapOf(
     "Severe Obesity" to Double.MAX_VALUE
 )
 
-@Parcelize
-data class BMIState(
-    var height: String = "170",
-    var weight: String = "70",
-    var isHeightInCm: Boolean = true,
-    var isWeightInKg: Boolean = true,
-    var isMale: Boolean = true,
-    var age: String = "30"
-) : Parcelable
-
 class BMIViewModel : ViewModel() {
-    var height = mutableStateOf("170")
-    var weight = mutableStateOf("70")
-    var isHeightInCm = mutableStateOf(true)
-    var isWeightInKg = mutableStateOf(true)
-    var isMale = mutableStateOf(true)
-    var age = mutableStateOf("30")
+    var height by mutableStateOf("170")
+        private set
+    var weight by mutableStateOf("70")
+        private set
+    var isHeightInCm by mutableStateOf(true)
+        private set
+    var isWeightInKg by mutableStateOf(true)
+        private set
+    var isMale by mutableStateOf(true)
+        private set
+    var age by mutableStateOf("30")
+        private set
 
 
     fun updateHeight(height: String) {
-        this.height.value = height
+        this.height = height
     }
 
     fun updateWeight(weight: String) {
-        this.weight.value = weight
+        this.weight = weight
     }
 
     fun updateHeightUnit() {
-        isHeightInCm.value.not().also { isHeightInCm.value = it }
+        isHeightInCm.not().also { isHeightInCm = it }
     }
 
     fun updateWeightUnit() {
-        isWeightInKg.value = isWeightInKg.value.not()
+        isWeightInKg = isWeightInKg.not()
     }
 
     fun updateGender() {
-        isMale.value = isMale.value.not()
+        isMale = isMale.not()
     }
 
     fun updateAge(age: String) {
-        this.age.value = age
+        this.age = age
     }
 
     fun getBmi(): Double {
-        val height = height.value.toDouble()
-        val weight = weight.value.toDouble()
-        val heightInM = if (isHeightInCm.value) height / 100.0 else height * 0.3048
-        val weightInKg = if (isWeightInKg.value) weight else weight * 0.453592
+        val height = height.toDouble()
+        val weight = weight.toDouble()
+        val heightInM = if (isHeightInCm) height / 100.0 else height * 0.3048
+        val weightInKg = if (isWeightInKg) weight else weight * 0.453592
         val heightSquared = heightInM * heightInM
         return weightInKg / heightSquared
     }
@@ -87,10 +83,10 @@ class BMIViewModel : ViewModel() {
 
 // TODO: Implement these functions correctly
 //    fun getBMIPrime(): Double {
-//        val height = height.value
-//        val weight = weight.value
-//        val heightInM = if (isHeightInCm.value) height / 100.0 else height * 0.3048
-//        val weightInKg = if (isWeightInKg.value) weight else weight * 0.453592
+//        val height = height
+//        val weight = weight
+//        val heightInM = if (isHeightInCm) height / 100.0 else height * 0.3048
+//        val weightInKg = if (isWeightInKg) weight else weight * 0.453592
 //        val heightSquared = heightInM * heightInM
 //        val bmi = weightInKg.toDouble() / heightSquared
 //        val ponderalIndex = weightInKg.toDouble() / heightInM.pow(3.0)
@@ -99,12 +95,12 @@ class BMIViewModel : ViewModel() {
 //    }
 //
 //    fun getPonderalIndex(): Double {
-//        return weight.value.toDouble() / height.value.toDouble().pow(3.0)
+//        return weight.toDouble() / height.toDouble().pow(3.0)
 //    }
 
     private fun getHeightInM(): Double {
-        val height = height.value.toDouble()
-        val heightInM = if (isHeightInCm.value) height / 100.0 else height * 0.3048
+        val height = height.toDouble()
+        val heightInM = if (isHeightInCm) height / 100.0 else height * 0.3048
         return heightInM
     }
 }

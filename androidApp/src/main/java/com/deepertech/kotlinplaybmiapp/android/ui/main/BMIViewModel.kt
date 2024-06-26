@@ -1,11 +1,9 @@
 package com.deepertech.kotlinplaybmiapp.android.ui.main
 
 import android.os.Parcelable
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import kotlinx.parcelize.Parcelize
-import kotlin.math.pow
 
 val bmiCategories = mapOf(
     "Underweight" to 19.0,
@@ -17,29 +15,29 @@ val bmiCategories = mapOf(
 
 @Parcelize
 data class BMIState(
-    var height: Int = 170,
-    var weight: Int = 70,
+    var height: String = "170",
+    var weight: String = "70",
     var isHeightInCm: Boolean = true,
     var isWeightInKg: Boolean = true,
     var isMale: Boolean = true,
-    var age: Int = 30
+    var age: String = "30"
 ) : Parcelable
 
 class BMIViewModel : ViewModel() {
-    var height = mutableIntStateOf(170)
-    var weight = mutableIntStateOf(70)
+    var height = mutableStateOf("170")
+    var weight = mutableStateOf("70")
     var isHeightInCm = mutableStateOf(true)
     var isWeightInKg = mutableStateOf(true)
     var isMale = mutableStateOf(true)
-    var age = mutableIntStateOf(30)
+    var age = mutableStateOf("30")
 
 
-    fun updateHeight(height: Int) {
-        this.height.intValue = height
+    fun updateHeight(height: String) {
+        this.height.value = height
     }
 
-    fun updateWeight(weight: Int) {
-        this.weight.intValue = weight
+    fun updateWeight(weight: String) {
+        this.weight.value = weight
     }
 
     fun updateHeightUnit() {
@@ -54,17 +52,17 @@ class BMIViewModel : ViewModel() {
         isMale.value = isMale.value.not()
     }
 
-    fun updateAge(age: Int) {
-        this.age.intValue = age
+    fun updateAge(age: String) {
+        this.age.value = age
     }
 
     fun getBmi(): Double {
-        val height = height.intValue
-        val weight = weight.intValue
+        val height = height.value.toDouble()
+        val weight = weight.value.toDouble()
         val heightInM = if (isHeightInCm.value) height / 100.0 else height * 0.3048
         val weightInKg = if (isWeightInKg.value) weight else weight * 0.453592
         val heightSquared = heightInM * heightInM
-        return weightInKg.toDouble() / heightSquared
+        return weightInKg / heightSquared
     }
 
     fun getBmiCategory(): String {
@@ -89,8 +87,8 @@ class BMIViewModel : ViewModel() {
 
 // TODO: Implement these functions correctly
 //    fun getBMIPrime(): Double {
-//        val height = height.intValue
-//        val weight = weight.intValue
+//        val height = height.value
+//        val weight = weight.value
 //        val heightInM = if (isHeightInCm.value) height / 100.0 else height * 0.3048
 //        val weightInKg = if (isWeightInKg.value) weight else weight * 0.453592
 //        val heightSquared = heightInM * heightInM
@@ -101,11 +99,11 @@ class BMIViewModel : ViewModel() {
 //    }
 //
 //    fun getPonderalIndex(): Double {
-//        return weight.intValue.toDouble() / height.intValue.toDouble().pow(3.0)
+//        return weight.value.toDouble() / height.value.toDouble().pow(3.0)
 //    }
 
-    fun getHeightInM(): Double {
-        val height = height.intValue
+    private fun getHeightInM(): Double {
+        val height = height.value.toDouble()
         val heightInM = if (isHeightInCm.value) height / 100.0 else height * 0.3048
         return heightInM
     }

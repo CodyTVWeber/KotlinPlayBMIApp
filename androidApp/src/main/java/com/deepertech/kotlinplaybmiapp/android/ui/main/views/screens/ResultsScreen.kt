@@ -102,8 +102,8 @@ fun ResultsScreen(
                                 REQUEST_CODE_PERMISSIONS
                             )
                         }
-                        var bmi = convertToStringWithOneDeciumalPlace(viewModel.getBmi())
-                        var message = "I have a BMI of ${bmi}. What's yours?"
+                        val bmi = convertToStringWithOneDecimalPlace(viewModel.getBmi())
+                        val message = "I have a BMI of ${bmi}. What's yours?"
 
                         val intent = Intent(Intent.ACTION_SENDTO).apply {
                             data = Uri.parse("smsto:")  // Only SMS apps respond to this.
@@ -170,7 +170,7 @@ private fun BMIDetails(
 //            )
 //            Spacer(modifier = Modifier.weight(1f))
 //            Text(
-//                convertToStringWithOneDeciumalPlace(viewModel.getBMIPrime()),
+//                convertToStringWithOneDecimalPlace(viewModel.getBMIPrime()),
 //            )
 //        }
 
@@ -185,7 +185,7 @@ private fun BMIDetails(
 //            Spacer(modifier = Modifier.weight(1f))
 //
 //            Text(
-//                convertToStringWithOneDeciumalPlace(viewModel.getPonderalIndex()) + " kg/m3",
+//                convertToStringWithOneDecimalPlace(viewModel.getPonderalIndex()) + " kg/m3",
 //            )
 //        }
     }
@@ -209,7 +209,7 @@ private fun BMIResult(
     Column {
         val value = viewModel.getBmi()
         Text(
-            convertToStringWithOneDeciumalPlace(value),
+            convertToStringWithOneDecimalPlace(value),
             style = MaterialTheme.typography.titleLarge,
         )
         Text(
@@ -219,7 +219,7 @@ private fun BMIResult(
     }
 }
 
-private fun convertToStringWithOneDeciumalPlace(value: Double) =
+private fun convertToStringWithOneDecimalPlace(value: Double) =
     ((value * 10).toInt() / 10.0).toString()
 
 private fun hasPermission(context: Context): Boolean {
@@ -233,8 +233,8 @@ private fun hasPermission(context: Context): Boolean {
 fun getHealthyWeightForHeight(viewModel: BMIViewModel): String {
     val healthyWeightForHeightUpper = viewModel.getHealthyWeightUpper()
     val healthyWeightForHeightLower = viewModel.getHealthyWeightLower()
-    return "${convertToStringWithOneDeciumalPlace(healthyWeightForHeightLower)} - ${
-        convertToStringWithOneDeciumalPlace(
+    return "${convertToStringWithOneDecimalPlace(healthyWeightForHeightLower)} - ${
+        convertToStringWithOneDecimalPlace(
             healthyWeightForHeightUpper
         )
     } kg"

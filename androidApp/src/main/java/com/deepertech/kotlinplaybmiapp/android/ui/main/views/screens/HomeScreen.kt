@@ -1,4 +1,4 @@
-package com.deepertech.kotlinplaybmiapp.android.ui.main
+package com.deepertech.kotlinplaybmiapp.android.ui.main.views.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -7,16 +7,22 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.deepertech.kotlinplaybmiapp.android.ui.main.viewmodels.BMIViewModel
+import com.deepertech.kotlinplaybmiapp.android.ui.main.views.components.AgePicker
+import com.deepertech.kotlinplaybmiapp.android.ui.main.views.components.Card
+import com.deepertech.kotlinplaybmiapp.android.ui.main.views.components.GenderPicker
+import com.deepertech.kotlinplaybmiapp.android.ui.main.views.components.HeightPicker
+import com.deepertech.kotlinplaybmiapp.android.ui.main.views.components.StandardButton
+import com.deepertech.kotlinplaybmiapp.android.ui.main.views.components.WeightPicker
 
 @Composable
-fun HomeScreen(navigateToResults: () -> Unit = {}) {
+fun HomeScreen(viewModel: BMIViewModel = BMIViewModel(), navigateToResults: () -> Unit = {}) {
     val standardPadding = Modifier
         .padding(16.dp, 0.dp, 16.dp, 16.dp)
 
@@ -43,25 +49,25 @@ fun HomeScreen(navigateToResults: () -> Unit = {}) {
             modifier = standardWeightedPadding
         ) {
             Card(modifier = Modifier.weight(1f)) {
-                GenderPicker()
+                GenderPicker(viewModel = viewModel)
             }
             Spacer(modifier = Modifier.padding(8.dp, 0.dp))
             Card(modifier = Modifier.weight(1f)) {
-                AgePicker()
+                AgePicker(viewModel = viewModel)
             }
         }
         Row(
             modifier = standardWeightedPadding
         ) {
             Card {
-                HeightPicker()
+                HeightPicker(viewModel = viewModel)
             }
         }
         Row(
             modifier = standardWeightedPadding
         ) {
             Card {
-                WeightPicker()
+                WeightPicker(viewModel = viewModel)
             }
         }
         Box(
@@ -69,21 +75,11 @@ fun HomeScreen(navigateToResults: () -> Unit = {}) {
                 .fillMaxWidth(),
             contentAlignment = androidx.compose.ui.Alignment.Center,
         ) {
-            StandardButton(navigateToResults)
+            StandardButton("Calculate", navigateToResults)
         }
     }
 }
 
-@Composable
-private fun StandardButton(navigateToResults: () -> Unit) {
-    Button(
-        onClick = navigateToResults
-    ) {
-        Spacer(modifier = Modifier.padding(8.dp, 0.dp))
-        Text("Calculate")
-        Spacer(modifier = Modifier.padding(8.dp, 0.dp))
-    }
-}
 
 @Preview
 @Composable

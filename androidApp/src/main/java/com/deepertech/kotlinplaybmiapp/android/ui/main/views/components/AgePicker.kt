@@ -1,22 +1,25 @@
-package com.deepertech.kotlinplaybmiapp.android.ui.main
+package com.deepertech.kotlinplaybmiapp.android.ui.main.views.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.deepertech.kotlinplaybmiapp.android.ui.main.viewmodels.BMIViewModel
 
 @Composable
-fun HeightAmountPicker(
+fun AgePicker(
     modifier: Modifier = Modifier,
-    viewModel: BMIViewModel = viewModel()
+    viewModel: BMIViewModel = BMIViewModel(),
 ) {
     // For now, just a simple text field.
     // Allow only numbers from 1 to 99.
@@ -30,23 +33,22 @@ fun HeightAmountPicker(
         verticalArrangement = Arrangement.Center
     ) {
         item {
-            Text("Height")
+            Text("Age")
             OutlinedTextField(
-                value = viewModel.height.value.toString(),
+                value = viewModel.age,
                 onValueChange = {
-                    viewModel.updateHeight(it.toIntOrNull() ?: 0)
+                    viewModel.updateAge(it)
                 },
-                label = { if (viewModel.isHeightInCm.value) Text("cm") else Text("ft")},
+                label = { Text("Age") },
                 singleLine = true,
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
         }
     }
 }
 
-
-
 @Preview
 @Composable
-fun HeightAmountPickerPreview() {
-    HeightAmountPicker()
+fun AgePickerPreview() {
+    AgePicker()
 }

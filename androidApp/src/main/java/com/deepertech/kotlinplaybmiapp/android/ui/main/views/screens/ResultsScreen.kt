@@ -1,5 +1,12 @@
 package com.deepertech.kotlinplaybmiapp.android.ui.main.views.screens
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -11,9 +18,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import com.deepertech.kotlinplaybmiapp.android.ui.main.viewmodels.BMIViewModel
 import com.deepertech.kotlinplaybmiapp.android.ui.main.views.components.StandardButton
 
@@ -22,6 +31,17 @@ fun ResultsScreen(
     viewModel: BMIViewModel = BMIViewModel(),
     navigateToHome: () -> Unit = {}
 ) {
+    val context = LocalContext.current
+
+    val sendSmsLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            // Handle the result of the SMS intent here
+            if (result.resultCode == Activity.RESULT_OK) {
+                // Handle the SMS sent
+                println("SMS sent")
+            }
+        }
+
     val standardPadding = Modifier
         .padding(16.dp, 0.dp, 16.dp, 16.dp)
     Column(
@@ -71,10 +91,33 @@ fun ResultsScreen(
                 Row {
                     StandardButton("Back", navigateToHome)
 
-//                    Spacer(modifier = Modifier.padding(8.dp, 0.dp))
-//
-//                    // TODO:  Implement sharing...
-//                    StandardButton("Share", navigateToHome)
+                    Spacer(modifier = Modifier.padding(8.dp, 0.dp))
+
+                    StandardButton("Share") {
+                        // Check and request permission if not already granted
+                        if (!hasPermission(context)) {
+                            ActivityCompat.requestPermissions(
+                                context as Activity,
+                                arrayOf(android.Manifest.permission.SEND_SMS),
+                                REQUEST_CODE_PERMISSIONS
+                            )
+                        }
+                        var bmi = convertToStringWithOneDeciumalPlace(viewModel.getBmi())
+                        var message = "I have a BMI of ${bmi}. What's yours?"
+
+                        val intent = Intent(Intent.ACTION_SENDTO).apply {
+                            data = Uri.parse("smsto:")  // Only SMS apps respond to this.
+                            putExtra(
+                                "sms_body",
+                                message
+                            )
+                            putExtra(
+                                Intent.EXTRA_STREAM,
+                                message
+                            )
+                        }
+                        sendSmsLauncher.launch(intent)
+                    }
                 }
             }
         }
@@ -179,6 +222,13 @@ private fun BMIResult(
 private fun convertToStringWithOneDeciumalPlace(value: Double) =
     ((value * 10).toInt() / 10.0).toString()
 
+private fun hasPermission(context: Context): Boolean {
+    return ContextCompat.checkSelfPermission(
+        context,
+        android.Manifest.permission.SEND_SMS
+    ) == PackageManager.PERMISSION_GRANTED
+}
+
 
 fun getHealthyWeightForHeight(viewModel: BMIViewModel): String {
     val healthyWeightForHeightUpper = viewModel.getHealthyWeightUpper()
@@ -189,6 +239,9 @@ fun getHealthyWeightForHeight(viewModel: BMIViewModel): String {
         )
     } kg"
 }
+
+
+private const val REQUEST_CODE_PERMISSIONS = 10
 
 @Preview
 @Composable

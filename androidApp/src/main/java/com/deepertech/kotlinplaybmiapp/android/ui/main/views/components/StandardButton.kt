@@ -9,9 +9,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun StandardButton(text: String, navigateToResults: () -> Unit ) {
+fun StandardButton(text: String, navigation: () -> Unit ) {
     Button(
-        onClick = navigateToResults
+        onClick = navigation
     ) {
         Spacer(modifier = Modifier.padding(8.dp, 0.dp))
         Text(text)

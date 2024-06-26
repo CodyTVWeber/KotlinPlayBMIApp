@@ -1,4 +1,4 @@
-package com.deepertech.kotlinplaybmiapp.android.ui.main
+package com.deepertech.kotlinplaybmiapp.android.ui.main.viewmodels
 
 import android.os.Parcelable
 import androidx.compose.runtime.mutableStateOf

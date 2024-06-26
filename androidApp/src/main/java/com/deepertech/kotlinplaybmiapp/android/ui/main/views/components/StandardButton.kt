@@ -1,4 +1,4 @@
-package com.deepertech.kotlinplaybmiapp.android.ui.main
+package com.deepertech.kotlinplaybmiapp.android.ui.main.views.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding

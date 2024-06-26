@@ -12,6 +12,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.deepertech.kotlinplaybmiapp.android.ui.main.views.screens.HomeScreen
+import com.deepertech.kotlinplaybmiapp.android.ui.main.views.screens.ResultsScreen
+import com.deepertech.kotlinplaybmiapp.android.ui.main.views.screens.Screen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.deepertech.kotlinplaybmiapp.android.ui.main
+package com.deepertech.kotlinplaybmiapp.android.ui.main.views.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -13,6 +13,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.deepertech.kotlinplaybmiapp.android.ui.main.views.components.AgePicker
+import com.deepertech.kotlinplaybmiapp.android.ui.main.views.components.Card
+import com.deepertech.kotlinplaybmiapp.android.ui.main.views.components.GenderPicker
+import com.deepertech.kotlinplaybmiapp.android.ui.main.views.components.HeightPicker
+import com.deepertech.kotlinplaybmiapp.android.ui.main.views.components.StandardButton
+import com.deepertech.kotlinplaybmiapp.android.ui.main.views.components.WeightPicker
 
 @Composable
 fun HomeScreen(navigateToResults: () -> Unit = {}) {

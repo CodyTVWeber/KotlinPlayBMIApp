@@ -1,4 +1,4 @@
-package com.deepertech.kotlinplaybmiapp.android.ui.main
+package com.deepertech.kotlinplaybmiapp.android.ui.main.views.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.deepertech.kotlinplaybmiapp.android.ui.main.viewmodels.BMIViewModel
 
 @Composable
 fun GenderPicker(

@@ -1,4 +1,4 @@
-package com.deepertech.kotlinplaybmiapp.android.ui.main
+package com.deepertech.kotlinplaybmiapp.android.ui.main.views.screens
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,6 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.deepertech.kotlinplaybmiapp.android.ui.main.viewmodels.BMIViewModel
+import com.deepertech.kotlinplaybmiapp.android.ui.main.views.components.StandardButton
 
 @Composable
 fun ResultsScreen(

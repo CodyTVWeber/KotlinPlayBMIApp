@@ -1,4 +1,4 @@
-package com.deepertech.kotlinplaybmiapp.android.ui.main
+package com.deepertech.kotlinplaybmiapp.android.ui.main.views.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -14,9 +14,10 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.deepertech.kotlinplaybmiapp.android.ui.main.viewmodels.BMIViewModel
 
 @Composable
-fun HeightAmountPicker(
+fun WeightAmountPicker(
     modifier: Modifier = Modifier,
     viewModel: BMIViewModel = viewModel()
 ) {
@@ -32,13 +33,13 @@ fun HeightAmountPicker(
         verticalArrangement = Arrangement.Center
     ) {
         item {
-            Text("Height")
+            Text("Weight")
             OutlinedTextField(
-                value = viewModel.height.value.toString(),
+                value = viewModel.weight.value,
                 onValueChange = {
-                    viewModel.updateHeight(it)
+                    viewModel.updateWeight(it)
                 },
-                label = { if (viewModel.isHeightInCm.value) Text("cm") else Text("ft")},
+                label = { if (viewModel.isWeightInKg.value) Text("kg") else Text("lb")},
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number)
             )
@@ -50,6 +51,6 @@ fun HeightAmountPicker(
 
 @Preview
 @Composable
-fun HeightAmountPickerPreview() {
-    HeightAmountPicker()
+fun WeightAmountPickerPreview() {
+    WeightAmountPicker()
 }

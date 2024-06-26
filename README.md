@@ -5,7 +5,10 @@ This is a simple BMI calculator app written in Kotlin. It is a part of the Kotli
 [https://dribbble.com/shots/23104842-DailyUI-004-BMI-Calculator](https://dribbble.com/shots/23104842-DailyUI-004-BMI-Calculator)
 
 ## Screenshots
-TODO: Add screenshots
+- Home screen
+  - ![img.png](img.png)
+- Results screen
+  - ![img_1.png](img_1.png)
 
 ## Features
 - Calculate BMI
@@ -13,8 +16,9 @@ TODO: Add screenshots
 - Share BMI
 
 ## Concepts Used
-- ViewModel
-- Navigation
+- Navigation (Navigation to multiple screens)
+- ViewModel (ViewModel for data persistence across screens)
+- Intents (Share via SMS)
 
 ## Libraries Used
 - [Material Components](https://material.io/develop/android/docs/getting-started/)
